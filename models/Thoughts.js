@@ -9,13 +9,13 @@ const thoughtsSchema = new Schema({
     },
     createdAt: {
         type: Date,
-        default: currentTime,
+        default: Date.now,
     },
     username: {
         type: String,
         required: true,
     },
-    reactions: [reactionSchema]
+    // reactions: [reactionSchema]
 },
 {
     toJSON: {
@@ -23,15 +23,10 @@ const thoughtsSchema = new Schema({
     }
 });
 
+// userSchema.get(function(currentTime){
+//     return `${this.createdAt.getMonth() + 1}/${this.createdAt.getDate()}/${this.createdAt.getFullYear()} ${this.createdAt.getHours() > 12 ? this.createdAt.getHours() - 12 : this.createdAt.getHours()}:${String(this.createdAt.getMinutes()).padStart(2, '0')} ${this.createdAt.getHours() >= 12 ? 'PM' : 'AM'}`;
+// })
 
-// * `createdAt`
-// * Date
-// * Set default value to the current timestamp
-// * Use a getter method to format the timestamp on query
+const Thoughts = model('thoughts', thoughtsSchema)
 
-// * `username` (The user that created this thought)
-// * String
-// * Required
-
-// * `reactions` (These are like replies)
-// * Array of nested documents created with the `reactionSchema`
+module.exports = Thoughts;
