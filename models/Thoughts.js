@@ -1,10 +1,28 @@
 const { Schema, model } = require('mongoose')
-const 
+const userSchema = require('./User')
 
-// * `thoughtText`
-// * String
-// * Required
-// * Must be between 1 and 280 characters
+const thoughtsSchema = new Schema({
+    thoughtText: {
+        type: String,
+        required: true,
+        max_length: 280,
+    },
+    createdAt: {
+        type: Date,
+        default: currentTime,
+    },
+    username: {
+        type: String,
+        required: true,
+    },
+    reactions: [reactionSchema]
+},
+{
+    toJSON: {
+        virtuals: true,
+    }
+});
+
 
 // * `createdAt`
 // * Date
