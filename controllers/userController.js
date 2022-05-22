@@ -1,5 +1,5 @@
-// const { ObjectId } = require('mongoose').Types;
-const { User } = require('../models');
+const { ObjectId } = require('mongoose').Types;
+const { User, Thought } = require('../models');
 
 
 module.exports = {
@@ -10,15 +10,14 @@ module.exports = {
     },
     createUser(req, res) {
         User.create(req.body)
-            .then((user) => res.json(user))
+            .then((newUser) => res.json(newUser))
             .catch((err) => res.status(500).json(err));
     },
     getSingleUser(req, res) {
         User.findOne({ _id: req.params.id })
             .select('-__v')
             // .populate('thoughts')
-            .exec()
-            .then((user) =>
+            .then( async (user) =>
                 !user ? res.status(404).json({ message: 'No user with that ID found!' })
                     : res.json(user))
             .catch((err) => res.status(500).json(err));
@@ -32,6 +31,11 @@ module.exports = {
                 !user ? res.status(404).json({ message: 'No User with that ID found!'})
                     : res.json(user))
             .catch((err) => res.status(500).json(err))
-    }
-    
+    },
+    // deleteUser(req, res) {
+    //     User.findOneAndRemove({ _id: req.params.id})
+    //         .then((user) => 
+    //             !user ? res.status(404).json({ message: 'No User with that ID found!'})
+    //             : Thought.find({ username: req.body.username}))
+    // }
 }
