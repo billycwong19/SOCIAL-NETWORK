@@ -24,7 +24,8 @@ const thoughtsSchema = new Schema({
 {
     toJSON: {
         virtuals: true,
-    }
+    },
+    id: false,
 });
 
 // userSchema.get(function(currentTime){
