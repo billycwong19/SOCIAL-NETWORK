@@ -32,10 +32,12 @@ module.exports = {
                     : res.json(user))
             .catch((err) => res.status(500).json(err))
     },
-    // deleteUser(req, res) {
-    //     User.findOneAndRemove({ _id: req.params.id})
-    //         .then((user) => 
-    //             !user ? res.status(404).json({ message: 'No User with that ID found!'})
-    //             : Thought.find({ username: req.body.username}))
-    // }
+    deleteUser(req, res) {
+        User.findOneAndRemove({ _id: req.params.id})
+            .then((user) => 
+            !user ? res.status(404).json({ message: 'No User with that ID found!'})
+            : res.json({ message: 'User has been deleted!'}))
+            .catch((err) => res.status(500).json(err))
+                
+    }
 }
