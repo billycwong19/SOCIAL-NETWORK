@@ -44,7 +44,7 @@ const userSchema = new Schema({
 
 userSchema.virtual('friendCount')
     .get(function(){
-        return `${this.username} has ${this.friends.length} friends!`
+        return `${this.username} has ${this.friends.length} ${this.friends.length === 0 ? 'friends!' : this.friends.length > 1 ? 'friends!' : 'friend!'}`
     })
 
 // userSchema.virtual('thoughts', {

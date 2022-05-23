@@ -17,7 +17,7 @@ module.exports= {
             return User.findOneAndUpdate(
               { username: req.body.username },
               { $addToSet: { thoughts: thought._id } },
-              { new: true }
+              { runValidators: true, new: true }
             );
           })
           .then((user) =>
@@ -36,7 +36,7 @@ module.exports= {
       Thought.findOneAndUpdate(
         { _id: req.params.id },
         { $set: req.body.thoughtText },
-        { new: true })
+        { runValidators: true, new: true })
         .then((thought) => 
             !thought ? res.status(404).json({ message: 'Not a single thought found!'})
             : res.status(200).json({ message: 'Updated Thought!' }, thought))
