@@ -36,8 +36,16 @@ module.exports = {
         User.findOneAndRemove({ _id: req.params.id})
             .then((user) => 
             !user ? res.status(404).json({ message: 'No User with that ID found!'})
-            : res.json({ message: 'User has been deleted!'}))
+            : Thought.deleteMany({ _id: { $in: user.thoughts } }))
+            .then(() => res.json({ message: 'User and User Thoughts now deleted. Goodbye!' }))
+            .catch((err) => res.status(500).json(err))       
+    },
+    addFriend(req, res) {
+        User.findOneAndUpdate(
+            { _id: req.params.id},
+            {$set: {friends: req.params.friend_id} },
+            { new: true })
+            .then((user) => res.json({ message: 'Friend added to User!' }))
             .catch((err) => res.status(500).json(err))
-                
     }
 }

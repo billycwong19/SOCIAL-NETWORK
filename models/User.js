@@ -22,12 +22,12 @@ const userSchema = new Schema({
         },
         required: [true, "Email required"]
     },
-    // thoughts: [
-    //     {
-    //         type: Schema.Types.ObjectId,
-    //         ref: 'Thought',
-    //     },
-    // ],
+    thoughts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Thought',
+        },
+    ],
     friends: [
         {
             type: Schema.Types.ObjectId,
@@ -47,11 +47,11 @@ userSchema.virtual('friendCount')
         return `${this.username} has ${this.friends.length} friends!`
     })
 
-userSchema.virtual('thoughts', {
-    ref: 'Thought',
-    localField: '_id',
-    foreignField: 'thoughtText'
-})
+// userSchema.virtual('thoughts', {
+//     ref: 'Thought',
+//     localField: '_id',
+//     foreignField: 'thoughtText'
+// })
 
 
 // userSchema.virtual('currentThought')
