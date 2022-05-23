@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose')
 
 const reactionSchema = new Schema({
-    reactionId: {
+    reaction_id: {
         type: Schema.Types.ObjectId,
         default: () => new Types.ObjectId(),
     },
@@ -29,7 +29,7 @@ const reactionSchema = new Schema({
 // * Set default value to the current timestamp
 // * Use a getter method to format the timestamp on query
 
-const Reaction = model('reaction', reactionSchema);
+const Reaction = model('Reaction', reactionSchema);
 
 module.exports = Reaction;
 

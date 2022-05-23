@@ -1,4 +1,4 @@
-const { Thought, User } = require('../models')
+const { Thought, User, Reaction } = require('../models')
 
 module.exports= {
     getAllThoughts(req, res) {
@@ -8,6 +8,7 @@ module.exports= {
     },
     getSingleThought(req, res) {
         Thought.findOne({ _id: req.params.id })
+        .populate({ path: 'reactions', select: '-__v'})
             .then((thought) => res.json(thought))
             .catch((err) => res.status(500).json('No a single thought found!'))
     },
@@ -48,6 +49,24 @@ module.exports= {
             !user ? res.status(404).json({ message: 'Not a single thought found!'})
             : res.json({ message: 'Thought has been deleted!'}))
             .catch((err) => res.status(500).json(err))
-    }
+    },
+    addReaction(req, res) {
+      Thought.findOneAndUpdate(
+          { _id: req.params.id},
+          { $addToSet: { reactions: req.body }},
+          { runValidators: true, new: true })
+          .then((thought) => res.json({ message: 'Reaction added to thought!' }))
+          .catch((err) => res.status(500).json(err))
+    },
+    // removeReaction(req, res) {
+    //     Thought.findOneAndUpdate(
+    //       { _id: req.params.id },
+    //       { $pull: { reactions: { reaction_id: req.body.reaction_id}}},
+    //       { runValidators: true, new: true })
+    //       .then((thought) =>
+    //             !thought ? res.status(404).json({ message: 'No thought found!' })
+    //                 : res.json({ message: 'Friend has been removed from User!'}))
+    //       .catch((err) => res.status(500).json(err));
+    // },
     
 }

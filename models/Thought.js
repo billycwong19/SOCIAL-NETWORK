@@ -32,6 +32,6 @@ const thoughtsSchema = new Schema({
 //     return `${this.createdAt.getMonth() + 1}/${this.createdAt.getDate()}/${this.createdAt.getFullYear()} ${this.createdAt.getHours() > 12 ? this.createdAt.getHours() - 12 : this.createdAt.getHours()}:${String(this.createdAt.getMinutes()).padStart(2, '0')} ${this.createdAt.getHours() >= 12 ? 'PM' : 'AM'}`;
 // })
 
-const Thoughts = model('thoughts', thoughtsSchema)
+const Thoughts = model('Thought', thoughtsSchema)
 
 module.exports = Thoughts;
