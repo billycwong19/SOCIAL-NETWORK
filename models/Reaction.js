@@ -1,9 +1,9 @@
-const { Schema, model } = require('mongoose')
+const { Schema, model, Types } = require('mongoose')
 
 const reactionSchema = new Schema({
-    reaction_id: {
+    reactionId: {
         type: Schema.Types.ObjectId,
-        default: () => new Types.ObjectId(),
+        default: Types.ObjectId,
     },
     reactionBody: {
         type: String,
@@ -18,7 +18,15 @@ const reactionSchema = new Schema({
         type: Date,
         default: Date.now,
     },
-})
+},
+{
+    toJSON: {
+        getters: true,
+    },
+    id: false,
+  }
+);
+
 
 // userSchema.get(function(currentTime){
 //     return `${this.createdAt.getMonth() + 1}/${this.createdAt.getDate()}/${this.createdAt.getFullYear()} ${this.createdAt.getHours() > 12 ? this.createdAt.getHours() - 12 : this.createdAt.getHours()}:${String(this.createdAt.getMinutes()).padStart(2, '0')} ${this.createdAt.getHours() >= 12 ? 'PM' : 'AM'}`;
@@ -31,5 +39,5 @@ const reactionSchema = new Schema({
 
 const Reaction = model('Reaction', reactionSchema);
 
-module.exports = Reaction;
+module.exports = reactionSchema;
 
