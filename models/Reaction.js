@@ -17,6 +17,7 @@ const reactionSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
+        get: formatDate
     },
 },
 {
@@ -28,14 +29,11 @@ const reactionSchema = new Schema({
 );
 
 
-// userSchema.get(function(currentTime){
-//     return `${this.createdAt.getMonth() + 1}/${this.createdAt.getDate()}/${this.createdAt.getFullYear()} ${this.createdAt.getHours() > 12 ? this.createdAt.getHours() - 12 : this.createdAt.getHours()}:${String(this.createdAt.getMinutes()).padStart(2, '0')} ${this.createdAt.getHours() >= 12 ? 'PM' : 'AM'}`;
-// })
-
-// * `createdAt`
-// * Date
-// * Set default value to the current timestamp
-// * Use a getter method to format the timestamp on query
+function formatDate (date) {
+    const timeElapsed = date;
+    const today = new Date(timeElapsed);
+    return today.toUTCString();
+}
 
 const Reaction = model('Reaction', reactionSchema);
 

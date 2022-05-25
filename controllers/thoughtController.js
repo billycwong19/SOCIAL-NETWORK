@@ -36,11 +36,11 @@ module.exports= {
     updateThought(req, res) {
       Thought.findOneAndUpdate(
         { _id: req.params.id },
-        { $set: req.body.thoughtText },
+        { $set: req.body },
         { runValidators: true, new: true })
         .then((thought) => 
             !thought ? res.status(404).json({ message: 'Not a single thought found!'})
-            : res.status(200).json({ message: 'Updated Thought!' }, thought))
+            : res.status(200).json({ message: 'Updated Thought!' }))
         .catch((err) => res.status(500).json(err))
     },
     deleteThought(req, res){

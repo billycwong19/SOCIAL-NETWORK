@@ -47,18 +47,6 @@ userSchema.virtual('friendCount')
         return `${this.username} has ${this.friends.length} ${this.friends.length === 0 ? 'friends!' : this.friends.length > 1 ? 'friends!' : 'friend!'}`
     })
 
-// userSchema.virtual('thoughts', {
-//     ref: 'Thought',
-//     localField: '_id',
-//     foreignField: 'thoughtText'
-// })
-
-
-// userSchema.virtual('currentThought')
-//     .get(function(){
-//         return `${this.thoughts.thoughtText}`
-//     })
-
 const User = model('User', userSchema);
 
 module.exports = User;

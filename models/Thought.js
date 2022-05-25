@@ -1,6 +1,11 @@
 const { Schema, model } = require('mongoose')
 const reactionSchema = require('./Reaction')
 
+// const formatDate = (date) => {
+//     const current = date
+//     return `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()} ${current.getHours() > 12 ? current.getHours() - 12 : current.getHours()}:${String(current.getMinutes()).padStart(2, '0')} ${current.getHours() >= 12 ? 'PM' : 'AM'}`;
+// }
+
 const thoughtSchema = new Schema({
     thoughtText: {
         type: String,
@@ -10,6 +15,7 @@ const thoughtSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
+        get: formatDate,
     },
     username: {
         type: String,
@@ -20,19 +26,21 @@ const thoughtSchema = new Schema({
 {
     toJSON: {
         virtuals: true,
+        getters: true,
     },
     id: false,
 });
 
+function formatDate (date) {
+    const timeElapsed = date;
+    const today = new Date(timeElapsed);
+    return today.toUTCString();
+  }
+
 thoughtSchema.virtual('reactionCount')
     .get(function(){
         return `${this.reactions.length}`
-    })
-
-
-// userSchema.get(function(currentTime){
-//     return `${this.createdAt.getMonth() + 1}/${this.createdAt.getDate()}/${this.createdAt.getFullYear()} ${this.createdAt.getHours() > 12 ? this.createdAt.getHours() - 12 : this.createdAt.getHours()}:${String(this.createdAt.getMinutes()).padStart(2, '0')} ${this.createdAt.getHours() >= 12 ? 'PM' : 'AM'}`;
-// })
+    }) 
 
 const Thoughts = model('Thought', thoughtSchema)
 
