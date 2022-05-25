@@ -28,7 +28,7 @@ const reactionSchema = new Schema({
   }
 );
 
-
+// date formatter
 function formatDate (date) {
     const timeElapsed = date;
     const today = new Date(timeElapsed);
@@ -36,6 +36,6 @@ function formatDate (date) {
 }
 
 const Reaction = model('Reaction', reactionSchema);
-
+// exports schema instead of model
 module.exports = reactionSchema;
 

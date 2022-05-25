@@ -1,7 +1,6 @@
-const { ObjectId } = require('mongoose').Types;
 const { User, Thought } = require('../models');
 
-
+// various requests for retrieving data for users
 module.exports = {
     getAllUsers(req, res) {
         User.find()
@@ -15,6 +14,7 @@ module.exports = {
     },
     getSingleUser(req, res) {
         User.findOne({ _id: req.params.id })
+            // populate method for friends and thoughts
             .populate({ path: 'thoughts', select: '-__v'})
             .populate({ path: 'friends', select: '-__v'})
             .then( async (user) =>

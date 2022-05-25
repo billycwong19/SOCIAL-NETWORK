@@ -1,5 +1,4 @@
 {
-    "name": "Say-Hi",
     "version": "0.1",
     "description": "Say-Hi Social Network",
     "main": "index.js",

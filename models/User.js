@@ -15,6 +15,7 @@ const userSchema = new Schema({
         lowercase: true,
         unique: true,
         validate: {
+            // email validator regex
             validator: function(v) {
                 return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
             },
@@ -22,6 +23,7 @@ const userSchema = new Schema({
         },
         required: [true, "Email required"]
     },
+    // referenced models
     thoughts: [
         {
             type: Schema.Types.ObjectId,
@@ -41,7 +43,7 @@ const userSchema = new Schema({
     },
     id: false,
 });
-
+//virtual to return friendCount
 userSchema.virtual('friendCount')
     .get(function(){
         return `${this.username} has ${this.friends.length} ${this.friends.length === 0 ? 'friends!' : this.friends.length > 1 ? 'friends!' : 'friend!'}`

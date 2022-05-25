@@ -1,5 +1,5 @@
 const { Thought, User, Reaction } = require('../models')
-
+// various requests for retrieving data
 module.exports= {
     getAllThoughts(req, res) {
         Thought.find()

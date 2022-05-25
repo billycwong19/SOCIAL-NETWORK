@@ -1,11 +1,6 @@
 const { Schema, model } = require('mongoose')
 const reactionSchema = require('./Reaction')
 
-// const formatDate = (date) => {
-//     const current = date
-//     return `${current.getMonth() + 1}/${current.getDate()}/${current.getFullYear()} ${current.getHours() > 12 ? current.getHours() - 12 : current.getHours()}:${String(current.getMinutes()).padStart(2, '0')} ${current.getHours() >= 12 ? 'PM' : 'AM'}`;
-// }
-
 const thoughtSchema = new Schema({
     thoughtText: {
         type: String,
@@ -21,6 +16,8 @@ const thoughtSchema = new Schema({
         type: String,
         required: true,
     },
+
+    // declare reactions with reachtionSchema inside array
     reactions: [reactionSchema]
 },
 {
@@ -36,7 +33,7 @@ function formatDate (date) {
     const today = new Date(timeElapsed);
     return today.toUTCString();
   }
-
+// reaction count virtual
 thoughtSchema.virtual('reactionCount')
     .get(function(){
         return `${this.reactions.length}`
